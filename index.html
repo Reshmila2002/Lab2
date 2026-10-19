@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="SkyCast - a clean weather dashboard with live forecasts."
+    />
+    <title>SkyCast | Weather Dashboard</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Outfit:wght@500;600;700&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="page-glow glow-one"></div>
+    <div class="page-glow glow-two"></div>
+
+    <header class="site-header">
+      <a class="brand" href="#top" aria-label="SkyCast home">
+        <span class="brand-mark" aria-hidden="true">☁</span>
+        <span>SkyCast</span>
+      </a>
+      <nav class="site-nav" aria-label="Primary navigation">
+        <a class="nav-link active" href="#today">Today</a>
+        <a class="nav-link" href="#forecast">Forecast</a>
+        <a class="nav-link" href="#details">Details</a>
+      </nav>
+      <button id="unit-toggle" class="unit-toggle" type="button" aria-label="Switch temperature unit">
+        <span class="active-unit">°C</span>
+        <span>°F</span>
+      </button>
+    </header>
+
+    <main id="top" class="dashboard">
+      <section class="hero" aria-labelledby="page-title">
+        <div class="hero-copy">
+          <p class="eyebrow">LIVE WEATHER, SIMPLIFIED</p>
+          <h1 id="page-title">Your day, under every sky.</h1>
+          <p class="hero-description">
+            Search any city to see current conditions and a five-day forecast.
+          </p>
+        </div>
+
+        <form id="search-form" class="search-form" role="search">
+          <label class="sr-only" for="city-input">Search for a city</label>
+          <span class="search-icon" aria-hidden="true">⌕</span>
+          <input
+            id="city-input"
+            name="city"
+            type="search"
+            placeholder="Search city or airport..."
+            autocomplete="off"
+            required
+          />
+          <button type="submit">Search</button>
+        </form>
+
+        <div class="quick-cities" aria-label="Quick city searches">
+          <span>Popular:</span>
+          <button type="button" data-city="Colombo">Colombo</button>
+          <button type="button" data-city="London">London</button>
+          <button type="button" data-city="Tokyo">Tokyo</button>
+          <button type="button" data-city="New York">New York</button>
+        </div>
+      </section>
+
+      <p id="status-message" class="status-message" aria-live="polite"></p>
+
+      <section id="today" class="weather-grid" aria-label="Current weather overview">
+        <article class="current-card card">
+          <div class="current-card-top">
+            <div>
+              <p id="location-name" class="location-name">Colombo, Sri Lanka</p>
+              <p id="current-date" class="muted">Loading date...</p>
+            </div>
+            <button id="location-button" class="location-button" type="button" title="Use my location">
+              <span aria-hidden="true">⌖</span>
+              <span>My location</span>
+            </button>
+          </div>
+
+          <div class="current-weather">
+            <div class="weather-symbol" id="current-icon" aria-hidden="true">☀</div>
+            <div>
+              <div class="temperature-row">
+                <span id="current-temperature" class="temperature">--°</span>
+                <span id="weather-description" class="condition">Loading...</span>
+              </div>
+              <p id="feels-like" class="feels-like">Feels like --°</p>
+            </div>
+          </div>
+
+          <div class="sun-times">
+            <div>
+              <span class="sun-icon" aria-hidden="true">↗</span>
+              <span><strong>Sunrise</strong><small id="sunrise-time">--:--</small></span>
+            </div>
+            <div>
+              <span class="sun-icon sunset" aria-hidden="true">↘</span>
+              <span><strong>Sunset</strong><small id="sunset-time">--:--</small></span>
+            </div>
+          </div>
+        </article>
+
+        <article id="details" class="details-card card" aria-labelledby="details-heading">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow small">AT A GLANCE</p>
+              <h2 id="details-heading">Today’s details</h2>
+            </div>
+            <span id="updated-at" class="updated-at">Updated now</span>
+          </div>
+          <div class="metrics">
+            <div class="metric">
+              <span class="metric-icon" aria-hidden="true">◒</span>
+              <span class="metric-label">Humidity</span>
+              <strong id="humidity-value">--%</strong>
+            </div>
+            <div class="metric">
+              <span class="metric-icon" aria-hidden="true">⌁</span>
+              <span class="metric-label">Wind</span>
+              <strong id="wind-value">-- km/h</strong>
+            </div>
+            <div class="metric">
+              <span class="metric-icon" aria-hidden="true">◉</span>
+              <span class="metric-label">Pressure</span>
+              <strong id="pressure-value">-- hPa</strong>
+            </div>
+            <div class="metric">
+              <span class="metric-icon" aria-hidden="true">◌</span>
+              <span class="metric-label">Visibility</span>
+              <strong id="visibility-value">-- km</strong>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section id="forecast" class="forecast-section" aria-labelledby="forecast-heading">
+        <div class="section-heading forecast-title">
+          <div>
+            <p class="eyebrow small">PLAN AHEAD</p>
+            <h2 id="forecast-heading">5-day forecast</h2>
+          </div>
+          <p id="forecast-summary" class="forecast-summary">Fetching the latest outlook...</p>
+        </div>
+        <div id="forecast-list" class="forecast-list" aria-live="polite"></div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>© <span id="copyright-year">2026</span> SkyCast. Forecast data by Open-Meteo.</p>
+      <a href="#top">Back to top ↑</a>
+    </footer>
+
+    <template id="forecast-template">
+      <article class="forecast-card">
+        <p class="forecast-day"></p>
+        <span class="forecast-icon" aria-hidden="true"></span>
+        <p class="forecast-condition"></p>
+        <p class="forecast-temp"><strong></strong><span></span></p>
+      </article>
+    </template>
+
+    <script src="script.js"></script>
+  </body>
+</html>
